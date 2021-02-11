@@ -1,0 +1,53 @@
+<!--izlew-->
+<div class="input-group mb-3">
+  <input [(ngModel)]="keyword"
+         (ngModelChange)="onCountryFilter()"
+         type="text"
+         class="form-control" 
+         placeholder="Mámleket atın kiritiń">
+</div>
+<!--/izlew-->
+<div class="col text-center">
+  <h3> Mámleketler boyınsha statistika:</h3>
+</div>
+<table class="table table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Mámleket</th>
+        <th scope="col">Ulıwma tastiyqlanǧan</th>
+        <th scope="col">Jańadan qosılǧan</th>
+        <th scope="col">Ulıwma qaytıs bolǧanlar</th>
+        <th scope="col">Jańadan qaytıs bolǧanlar</th>
+        <th scope="col">Aktiv jaǧdaylar</th>
+        <th scope="col">Ulıwma táwir bolǧanlar</th>
+        <th scope="col">Awır ahıwaldaǧılar</th>
+        <th scope="col">Ulıwma / 1M xalıqtan</th>
+        <th scope="col">Qaytıs bolǧanlar / 1M xalıqtan</th>
+        <th scope="col">Ulıwma test</th>
+        <th scope="col">Test alınǧanlar / 1M xalıqtan</th>
+        <th scope="col">Xalıq sanı</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let countriesStatistic of countriesStatistics; let i=index"
+          [ngClass]="{'bg-success text-light': countriesStatistic.active == 0} ">
+        <td scope="row"> {{i+1}} </td>
+        <td>
+          <a routerLink="country/{{countriesStatistic.countryInfo.iso3}} ">
+          {{countriesStatistic.country}} </a></td>
+        <td>{{countriesStatistic.cases | number}}</td>
+        <td [ngClass]="{'bg-warning': countriesStatistic.todayCases >0} ">{{countriesStatistic.todayCases > 0 ? ('+' + countriesStatistic.todayCases): '' }}</td>
+        <td>{{countriesStatistic.deaths | number}}</td>
+        <td [ngClass]="{'bg-danger text-light': countriesStatistic.todayDeaths >0} ">{{countriesStatistic.todayDeaths > 0 ? ('+' + countriesStatistic.todayDeaths): '' }}</td>
+        <td>{{countriesStatistic.active | number}}</td>
+        <td>{{countriesStatistic.recovered | number}}</td>
+        <td>{{countriesStatistic.critical | number}}</td>
+        <td>{{countriesStatistic.casesPerOneMillion | number}}</td>
+        <td>{{countriesStatistic.deathsPerOneMillion | number}}</td>
+        <td>{{countriesStatistic.tests | number}}</td>
+        <td>{{countriesStatistic.testsPerOneMillion | number}}</td>
+        <td class='text-primary'>{{countriesStatistic.population | number}}</td>
+      </tr>
+    </tbody>
+  </table>
